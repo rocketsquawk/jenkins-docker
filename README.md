@@ -17,11 +17,24 @@ pipeline {
 ```
 This allows you to use any Docker container for build steps or pipelines without needing to install dependencies on your workstation or in a custom Jenkins image.
 
+## For the impatient
+**tl;dr**
+```
+docker run -d -p 8080:8080 -p 50000:50000 \
+    --name jenkins-docker \
+    -v jenkins_home:/var/jenkins_home \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    --restart unless-stopped \
+    --env JENKINS_URL=http://localhost:8080/ \
+    rocketsquawk/jenkins-docker
+```
+The above will create a container using the latest build published to Docker Hub, using the default values. Just point your browser at http://localhost:8080 after everything initialises.
+
 ## What does "minimum of hassle (and security)" mean?
 It means:
 * The Jenkins setup wizard is skipped.
-* NO SECURITY IS ENABLED! Great for use on your local workstation, but NOT suitable if you want to expose this to a LAN or WAN.
-* A common set of plugins is installed by default, but you can easily customise them be editing `config/plugins.txt`.
+* **NO SECURITY IS ENABLED!** Great for use on your local workstation, but NOT suitable if you want to expose this to a LAN or WAN.
+* A common set of plugins is installed by default, but you can easily customise them by editing `config/plugins.txt`.
 * The Code as Configuration plugin is enabled and a customisable basic config is provided.
 * HTTP (not HTTPS).
 
@@ -32,7 +45,7 @@ It means:
 ```
 $ sh ./build_and start_jenkins.sh
 ```
-4. Access the Jenkins UI at http://locahost:8080 (unless you changed the vars in `env_vars.sh`)
+4. Access the Jenkins UI at http://locahost:8080 (unless you changed the vars in `env_vars.sh` ... read on ...)
 
 ## How do I tweak stuff?
 After the first run of `build_and start_jenkins.sh`, a persistent volume is created for the Jenkins home dir (where all build and job config data is stored). So, to add or delete plugins or change any other config, you can use the Jenkins UI as normal. Any changes you make will be persisted across restarts of the container. However, if you ever delete the volume, all your changes will be lost (along with any jobs and builds).
