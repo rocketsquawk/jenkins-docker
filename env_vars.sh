@@ -1,11 +1,5 @@
 #!/bin/bash
 #
-# You only need to run this script ONCE!
-# Whenever you want to start Jenkins in the future,
-# you just need to run `docker run jenkins-docker`
-# (or whatever you set CONTAINER_NAME to before
-# running this script).
-#
 # CHANGE THESE TO SUIT YOUR NEEDS!
 #
 IMAGE_NAME=rocketsquawk/jenkins-docker
