@@ -1,5 +1,6 @@
 ant:latest
 antisamy-markup-formatter:latest
+build-name-setter:latest
 build-timeout:latest
 blueocean:latest
 cloudbees-folder:latest
