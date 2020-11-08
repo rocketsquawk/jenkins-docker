@@ -10,7 +10,7 @@
 #   HOST_DOCKER_GID: GID of docker group *ON THE HOST*
 #
 # To find these values, use the id command on the host
-#  (as a user with in the docker group). E.g.:
+# (as a user that's been added to the docker group). E.g.:
 #   rocket@ubuntu:~$ id
 #   uid=1000(rocket) groups=1000(rocket),1001(docker)
 #
