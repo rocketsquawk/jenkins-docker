@@ -44,7 +44,7 @@ It means:
 HOST_DOCKER_UID=1000
 HOST_DOCKER_GID=1001
 ```
-3. Run `build_and start_jenkins.sh` like so:
+3. Run `build_and start_jenkins.sh`. You only need to run this script once. It builds the image and creates a container with a persistent volume for `JENKINS_HOME`. So, if you stop the container, you only need to `docker start jenkins-docker` (or whatever you set CONTAINER_NAME to before running the script) to start it again.
 ```bash
 $ sh ./build_and start_jenkins.sh
 ```

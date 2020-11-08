@@ -12,7 +12,5 @@ docker rmi $IMAGE_NAME
 #
 # THIS LINE WILL DELETE ALL DATA IN JENKINS_HOME DIR!
 # Uncomment if you want to start afresh.
-# E.g. When you just want to tweak casc.yaml or plugins.txt
-# (but keep all build and config data)
 #
 #docker volume rm jenkins_home

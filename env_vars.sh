@@ -1,9 +1,9 @@
 #!/bin/bash
-#
-# CHANGE THESE TO SUIT YOUR NEEDS!
-#
-IMAGE_NAME=rocketsquawk/jenkins-docker
-CONTAINER_NAME=jenkins-docker
+#  ___ __  __ ____   ___  ____ _____  _    _   _ _____ _ 
+# |_ _|  \/  |  _ \ / _ \|  _ \_   _|/ \  | \ | |_   _| |
+#  | || |\/| | |_) | | | | |_) || | / _ \ |  \| | | | | |
+#  | || |  | |  __/| |_| |  _ < | |/ ___ \| |\  | | | |_|
+# |___|_|  |_|_|    \___/|_| \_\|_/_/   \_\_| \_| |_| (_)
 #
 # SUPER IMPORTANT!
 #   HOST_DOCKER_UID: UID of user in docker group *ON THE HOST* 
@@ -17,6 +17,11 @@ CONTAINER_NAME=jenkins-docker
 HOST_DOCKER_UID=1000
 HOST_DOCKER_GID=1001
 #
+# Change these to your liking.
+#
+IMAGE_NAME=rocketsquawk/jenkins-docker
+CONTAINER_NAME=jenkins-docker
+#
 # Port to map for both container and host.
 # Jenkins UI will be exposed here.
 #
@@ -25,4 +30,4 @@ JENKINS_UI_PORT=8080
 # URL can be your workstation LAN IP if you want others to have access,
 # BUT HERE BE DRAGONS!!! Jenkins is completely unsecured by default!
 #
-JENKINS_UI_BASE_URL=localhost
+JENKINS_UI_BASE_URL=0.0.0.0
