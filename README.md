@@ -1,6 +1,8 @@
 # Jenkins with Docker
 ## What is this?
-This is a Dockerfile and set of helper scripts to get Jenkins CI server with a Docker-in-Docker configuration up and running on your local workstation with a minimum of hassle (and security!) With this configuration, you can easily use Docker images as an execution environment in your Pipelines. For example:
+This is a Dockerfile and set of helper scripts to get Jenkins CI server up and running with proper permissions to the host `/var/run/docker.sock`. The dreaded and common _permission denied_ problem is solved with a properly built container using this repo. Everything is optimised for use on your local workstation with a minimum of hassle (and security!), and not recommended for use in a team setting. If the latter is what you're after, just fork and refer to the article referenced at the end of this README.
+
+With a Jenkins container built from this repo, you can easily use Docker images as an execution environment in your Pipelines. For example:
 ```groovy
 pipeline {
     agent {
@@ -20,7 +22,7 @@ This allows you to use any Docker container for build steps or pipelines without
 ## What does "minimum of hassle (and security)" mean?
 It means:
 * The Jenkins setup wizard is skipped.
-* **NO SECURITY IS ENABLED!** Great for use on your local workstation, but NOT suitable if you want to expose this to a LAN or WAN.
+* **NO SECURITY IS ENABLED! ALL ACCESS IS ANONYMOUS!** Great for use on your local workstation, but NOT suitable if you want to expose this to a LAN or WAN.
 * A common set of plugins is installed by default, but you can easily customise them by editing `config/plugins.txt`.
 * The Code as Configuration plugin is enabled and a customisable basic config is provided.
 * HTTP (not HTTPS).
