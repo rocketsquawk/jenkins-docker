@@ -1,5 +1,6 @@
 #!/bin/bash
-#. ./env_vars.sh;
+. ./env_vars.sh;
+#
 # You only need to run this script ONCE!
 # Whenever you want to start Jenkins in the future,
 # you just need to run `docker run jenkins-docker`
