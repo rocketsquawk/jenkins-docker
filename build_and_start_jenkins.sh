@@ -8,8 +8,8 @@
 #
 # Comment/uncomment to choose buildkit or old-style build
 #
-#docker build -t $IMAGE_NAME .
-DOCKER_BUILDKIT=1 docker build -t $IMAGE_NAME .
+#docker build -t $IMAGE_NAME --build-arg HOST_DOCKER_UID=$HOST_DOCKER_UID --build-arg HOST_DOCKER_GID=$HOST_DOCKER_GID .
+DOCKER_BUILDKIT=1 docker build -t $IMAGE_NAME --build-arg HOST_DOCKER_UID=$HOST_DOCKER_UID --build-arg HOST_DOCKER_GID=$HOST_DOCKER_GID .
 #
 # Run container for first time and
 #   - Create jenkins_home Docker volume for Jenkins data;

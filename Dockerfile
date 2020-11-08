@@ -5,6 +5,13 @@
 FROM jenkins/jenkins
 #FROM jenkins/jenkins:lts
 #
+# Set UID and GID defaults; used later to mod jenkins user
+# and docker group to match host's UID and GID values
+# OVERRIDE THESE DEFAULTS IN env_vars.sh!
+#
+ARG HOST_DOCKER_UID=1000
+ARG HOST_DOCKER_GID=1001
+#
 # Disable setup wizard on Jenkins first startup
 # and specify Config as Code 
 #
@@ -24,22 +31,25 @@ USER root
 # Install latest Docker CE binaries and add user `jenkins` to the docker group
 #
 RUN apt-get update && \
-    apt-get -y --no-install-recommends install apt-transport-https \
-      ca-certificates \
-      curl \
-      gnupg2 \
-      software-properties-common && \
-    curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg > \
-      /tmp/dkey; \
-      apt-key add /tmp/dkey && \
-      add-apt-repository \
-      "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
-      $(lsb_release -cs) \
-      stable" && \
-   apt-get update && \
-   apt-get -y --no-install-recommends install docker-ce && \
-   apt-get clean && \
-   usermod -aG docker jenkins
+  apt-get -y --no-install-recommends install apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg2 \
+    software-properties-common && \
+  curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg > /tmp/dkey; \
+    apt-key add /tmp/dkey && \
+  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
+    $(lsb_release -cs) stable" && \
+  apt-get update && \
+  apt-get -y --no-install-recommends install docker-ce && \
+  apt-get clean
+#
+# Set UID and GID and add jenkins user to docker group
+# so we have permissions on host's docker.sock
+#
+RUN usermod -u $HOST_DOCKER_UID jenkins && \
+  groupmod -g $HOST_DOCKER_GID docker && \
+  usermod -aG docker jenkins
 #
 # Back to the jenkins user
 #
