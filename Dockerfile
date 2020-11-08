@@ -21,17 +21,20 @@ ENV CASC_JENKINS_CONFIG /var/jenkins_home/casc.yaml
 # Install typical plugins and copy CasC
 #
 COPY config/plugins.txt /usr/share/jenkins/ref/plugins.txt
-RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 COPY config/casc.yaml /var/jenkins_home/casc.yaml
 #
 # Need root for apt operations
 #
 USER root
 #
+# Install Jenkins plugins from plugins.txt
+#
+RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt && \
+#
 # Install latest Docker CE binaries and add user `jenkins` to the docker group
 #
-RUN apt-get update && \
-  apt-get -y --no-install-recommends install apt-transport-https \
+  apt-get update && \
+    apt-get -y --no-install-recommends install apt-transport-https \
     ca-certificates \
     curl \
     gnupg2 \
@@ -42,12 +45,13 @@ RUN apt-get update && \
     $(lsb_release -cs) stable" && \
   apt-get update && \
   apt-get -y --no-install-recommends install docker-ce && \
-  apt-get clean
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/* && \
 #
 # Set UID and GID and add jenkins user to docker group
 # so we have permissions on host's docker.sock
 #
-RUN usermod -u $HOST_DOCKER_UID jenkins && \
+  usermod -u $HOST_DOCKER_UID jenkins && \
   groupmod -g $HOST_DOCKER_GID docker && \
   usermod -aG docker jenkins
 #
