@@ -15,7 +15,7 @@
 #   uid=1000(rocket) groups=1000(rocket),1001(docker)
 #
 HOST_DOCKER_UID=1000
-HOST_DOCKER_GID=1001
+HOST_DOCKER_GID=998
 #
 # Change these to your liking.
 #

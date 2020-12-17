@@ -34,7 +34,7 @@ RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt && \
 # Install latest Docker CE binaries and add user `jenkins` to the docker group
 #
   apt-get update && \
-    apt-get -y --no-install-recommends install apt-transport-https \
+  apt-get -y --no-install-recommends install apt-transport-https \
     ca-certificates \
     curl \
     gnupg2 \
@@ -45,6 +45,9 @@ RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt && \
     $(lsb_release -cs) stable" && \
   apt-get update && \
   apt-get -y --no-install-recommends install docker-ce && \
+  curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" && \
+	chmod +x ./kubectl && \
+	mv ./kubectl /usr/local/bin/kubectl && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
 #
